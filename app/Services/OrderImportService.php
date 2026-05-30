@@ -142,7 +142,7 @@ class OrderImportService
 
         if ($rawCost > 0 && $brand !== null && $brand !== '') {
             BrandCost::rememberCost($brand, $rawCost);
-            $this->brandCostMap[strtolower(trim($brand))] = $rawCost;
+            $this->brandCostMap[BrandCost::normalizeBrandKey($brand)] = $rawCost;
         }
 
         $financial = $this->orderFinancialService->buildPayload($sellingPrice, $netRevenue, $costPrice);

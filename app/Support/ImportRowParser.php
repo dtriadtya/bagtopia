@@ -97,6 +97,26 @@ class ImportRowParser
             return null;
         }
 
+        $raw = trim($value);
+
+        if (preg_match(
+            '/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2})[.:](\d{2}))?/u',
+            $raw,
+            $matches
+        )) {
+            try {
+                return Carbon::create(
+                    (int) $matches[3],
+                    (int) $matches[2],
+                    (int) $matches[1],
+                    isset($matches[4]) ? (int) $matches[4] : 0,
+                    isset($matches[5]) ? (int) $matches[5] : 0,
+                );
+            } catch (\Throwable) {
+                return null;
+            }
+        }
+
         $indoMonths = [
             'januari' => 'january', 'februari' => 'february', 'maret' => 'march',
             'april' => 'april', 'mei' => 'may', 'juni' => 'june',
@@ -104,8 +124,20 @@ class ImportRowParser
             'oktober' => 'october', 'november' => 'november', 'desember' => 'december',
         ];
 
-        $translated = str_ireplace(array_keys($indoMonths), array_values($indoMonths), trim($value));
-        $translated = preg_replace('/(\d{2})\.(\d{2})/', '$1:$2', $translated);
+        $translated = str_ireplace(array_keys($indoMonths), array_values($indoMonths), $raw);
+        $translated = preg_replace('/(\d{1,2})\.(\d{2})(?:\s|$)/', '$1:$2', $translated);
+
+        foreach (['j F Y H:i', 'j F Y H.i', 'j F Y', 'd F Y H:i'] as $format) {
+            try {
+                $parsed = Carbon::createFromFormat($format, $translated);
+
+                if ($parsed instanceof Carbon) {
+                    return $parsed;
+                }
+            } catch (\Throwable) {
+                continue;
+            }
+        }
 
         try {
             return Carbon::parse($translated);
