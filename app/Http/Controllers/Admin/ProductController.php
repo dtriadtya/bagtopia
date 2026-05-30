@@ -28,9 +28,9 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:2000',
             'shopee_link' => 'nullable|url|max:255',
             'wa_link' => 'nullable|url|max:255',
-            'image' => 'nullable|image|max:2048',
-            'image_2' => 'nullable|image|max:2048',
-            'image_3' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:10240',
+            'image_2' => 'nullable|image|max:10240',
+            'image_3' => 'nullable|image|max:10240',
         ]);
 
         $product = new Product();
