@@ -235,7 +235,7 @@
 
         <!-- Floating Action Button -->
         <button onclick="toggleSupportChat()" id="supportChatBtn"
-            class="flex items-center justify-center size-14 bg-stone-900 hover:bg-stone-800 text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 relative group">
+            class="flex items-center justify-center w-14 h-14 bg-stone-900 hover:bg-stone-800 text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 relative group">
             <span class="absolute inset-0 rounded-full bg-stone-900 opacity-20 group-hover:animate-ping"></span>
 
             <svg id="chatIconOpen" class="w-6 h-6 transition-all duration-300" fill="none" stroke="currentColor"
