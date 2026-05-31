@@ -20,24 +20,24 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
         ]);
 
-        $bagtopediaShopee = Store::query()->create([
-            'name' => 'Bagtopedia Shopee',
+        $bagtopiaShopee = Store::query()->create([
+            'name' => 'Bagtopia Shopee',
             'platform' => 'shopee',
-            'marketplace_store_id' => 'SHP-BAGTOPEDIA-01',
-            'oauth_token' => 'seed-token-bagtopedia-shopee',
+            'marketplace_store_id' => 'SHP-BAGTOPIA-01',
+            'oauth_token' => 'seed-token-bagtopia-shopee',
             'is_active' => true,
         ]);
 
-        $bagtopediaTikTok = Store::query()->create([
-            'name' => 'Bagtopedia TikTok Shop',
+        $bagtopíaTikTok = Store::query()->create([
+            'name' => 'Bagtopia TikTok Shop',
             'platform' => 'tiktok_shop',
-            'marketplace_store_id' => 'TTS-BAGTOPEDIA-01',
-            'oauth_token' => 'seed-token-bagtopedia-tiktok',
+            'marketplace_store_id' => 'TTS-BAGTOPIA-01',
+            'oauth_token' => 'seed-token-bagtopia-tiktok',
             'is_active' => true,
         ]);
 
         Order::query()->create([
-            'store_id' => $bagtopediaShopee->id,
+            'store_id' => $bagtopiaShopee->id,
             'order_number' => 'ORD-SHP-0001',
             'buyer_name' => 'Andi Pratama',
             'buyer_phone' => '081111111111',
@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Order::query()->create([
-            'store_id' => $bagtopediaTikTok->id,
+            'store_id' => $bagtopíaTikTok->id,
             'order_number' => 'ORD-TTS-0001',
             'buyer_name' => 'Budi Santoso',
             'buyer_phone' => '081111111111',
@@ -65,3 +65,4 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
+

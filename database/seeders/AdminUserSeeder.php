@@ -14,7 +14,7 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::query()->updateOrCreate(
-            ['email' => 'admin@bagtopedia.local'],
+            ['email' => 'admin@bagtopia.local'],
             [
                 'name' => 'Super Admin',
                 'password' => Hash::make('admin12345'),
@@ -24,7 +24,7 @@ class AdminUserSeeder extends Seeder
         );
 
         User::query()->updateOrCreate(
-            ['email' => 'admin1@bagtopedia.local'],
+            ['email' => 'admin1@bagtopia.local'],
             [
                 'name' => 'Admin Operasional',
                 'password' => Hash::make('admin12345'),

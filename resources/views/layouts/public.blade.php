@@ -136,7 +136,7 @@
     <!-- Footer -->
     <footer class="bg-stone-100 border-t border-stone-200 py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-stone-500 text-sm">
-            <p>&copy; {{ date('Y') }} Bagtopedia. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Bagtopia. All rights reserved.</p>
         </div>
     </footer>
 

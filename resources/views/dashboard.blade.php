@@ -3,7 +3,7 @@
 @section('content')
     <section class="mb-4">
         <h2 class="text-2xl font-bold tracking-tight">Dashboard</h2>
-        <p class="text-sm text-slate-500">Ringkasan penjualan, keuangan, dan fraud toko Bagtopedia.</p>
+        <p class="text-sm text-slate-500">Ringkasan penjualan, keuangan, dan fraud toko Bagtopia.</p>
     </section>
 
     <section class="grid gap-3 md:grid-cols-2 xl:grid-cols-4 mb-4">

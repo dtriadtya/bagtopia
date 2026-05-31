@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login Admin - Bagtopedia</title>
+        <title>Login Admin - Bagtopia</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
                                 <span class="size-2 rounded-full bg-emerald-400"></span>
                                 Admin Access Only
                             </div>
-                            <h1 class="mt-4 text-3xl font-bold leading-tight">Bagtopedia Monitoring</h1>
+                            <h1 class="mt-4 text-3xl font-bold leading-tight">Bagtopia Monitoring</h1>
                             <p class="mt-3 text-sm text-slate-300">
                                 Kelola transaksi toko Shopee & TikTok Shop, deteksi fraud otomatis, dan akses laporan penjualan dari satu dashboard.
                             </p>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bagtopedia - Monitoring Toko</title>
+        <title>Bagtopia - Monitoring Toko</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
         <div class="min-h-screen flex">
             <aside id="appSidebar" class="fixed inset-y-0 left-0 z-40 w-56 bg-slate-950 text-slate-200 flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:shrink-0">
                 <div class="px-4 py-5 border-b border-slate-800">
-                    <h1 class="text-sm font-semibold tracking-wide">Bagtopedia Monitor</h1>
+                    <h1 class="text-sm font-semibold tracking-wide">Bagtopia Monitor</h1>
                 </div>
                 <nav class="p-3 text-sm space-y-1">
                     <p class="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Menu</p>

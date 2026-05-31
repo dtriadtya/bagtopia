@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $product->name . ' - Bagtopedia')
+@section('title', $product->name . ' - Bagtopia')
 
 @section('content')
 @php
