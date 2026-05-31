@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <div class="grid gap-4 lg:grid-cols-2">
+    <div class="grid gap-4 {{ auth()->user()?->role === 'super_admin' ? 'lg:grid-cols-2' : '' }}">
         <section class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
             <h3 class="font-semibold text-sm mb-3 flex items-center gap-2">
                 <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 19h16M7 16V8m5 8V5m5 11v-6"/></svg>
@@ -129,34 +129,36 @@
             </div>
         </section>
 
-        <section class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-            <h3 class="font-semibold text-sm mb-3 flex items-center gap-2">
-                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16"/></svg>
-                Recent Import Logs
-            </h3>
-            <div class="space-y-2">
-                @forelse ($recentImports as $log)
-                    <div class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 flex items-center justify-between gap-3">
-                        <div>
-                            <p class="text-sm font-medium">{{ $log->file_name }}</p>
-                            <p class="text-xs text-slate-500">
-                                {{ strtoupper($log->platform) }} · {{ optional($log->imported_at)->format('d/m/Y H:i') }}
-                            </p>
+        @if (auth()->user()?->role === 'super_admin')
+            <section class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <h3 class="font-semibold text-sm mb-3 flex items-center gap-2">
+                    <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16"/></svg>
+                    Recent Import Logs
+                </h3>
+                <div class="space-y-2">
+                    @forelse ($recentImports as $log)
+                        <div class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-medium">{{ $log->file_name }}</p>
+                                <p class="text-xs text-slate-500">
+                                    {{ strtoupper($log->platform) }} · {{ optional($log->imported_at)->format('d/m/Y H:i') }}
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-slate-600">ok: {{ $log->imported_rows }} | dup: {{ $log->duplicate_rows }} | skip: {{ $log->skipped_rows }}</p>
+                                <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px]
+                                    @if ($log->status === 'success') bg-emerald-100 text-emerald-700
+                                    @elseif ($log->status === 'partial') bg-amber-100 text-amber-700
+                                    @else bg-rose-100 text-rose-700 @endif">
+                                    {{ strtoupper($log->status) }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-xs text-slate-600">ok: {{ $log->imported_rows }} | dup: {{ $log->duplicate_rows }} | skip: {{ $log->skipped_rows }}</p>
-                            <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px]
-                                @if ($log->status === 'success') bg-emerald-100 text-emerald-700
-                                @elseif ($log->status === 'partial') bg-amber-100 text-amber-700
-                                @else bg-rose-100 text-rose-700 @endif">
-                                {{ strtoupper($log->status) }}
-                            </span>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-sm text-slate-500">Belum ada riwayat import.</p>
-                @endforelse
-            </div>
-        </section>
+                    @empty
+                        <p class="text-sm text-slate-500">Belum ada riwayat import.</p>
+                    @endforelse
+                </div>
+            </section>
+        @endif
     </div>
 @endsection
