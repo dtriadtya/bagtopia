@@ -103,66 +103,54 @@ if (empty($bottomImages)) {
             <h2 class="text-xl md:text-2xl font-serif-brand text-[#1e3a5f] uppercase font-bold tracking-wide">NEW LAUNCHING</h2>
         </div>
 
-        <div class="swiper product-slider !pb-12 px-2">
+        @if($newLaunching->isEmpty())
+            <p class="text-center text-sm text-gray-400">Belum ada produk.</p>
+        @else
+        <div class="swiper product-slider-launching !pb-12 px-2">
             <div class="swiper-wrapper">
-            @for($i=1; $i<=4; $i++)
+            @foreach($newLaunching as $product)
                 <div class="swiper-slide h-auto">
                     <div class="bg-white h-full rounded-md border border-gray-100 shadow-sm overflow-hidden flex flex-col relative group">
-                        <a href="#" class="block relative w-full aspect-square">
-                            <img src="{{ $bagImages[$i-1] }}" alt="Premium Bag" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                            
-                            <!-- Badges -->
-                            <div class="absolute top-2 left-2 flex flex-col gap-1">
-                                @if($i % 2 == 0)
-                                <span class="bg-black/60 text-white text-[10px] font-bold px-2 py-1 tracking-wider uppercase">NEW</span>
-                                @else
-                                <span class="bg-[#c2a278]/80 text-white text-[10px] font-bold px-2 py-1 tracking-wider uppercase">PRE-ORDER</span>
-                                @endif
+                        <a href="{{ route('products.show', $product->slug) }}" class="block relative w-full aspect-square">
+                            @if($product->image_path)
+                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                            @else
+                                <div class="w-full h-full bg-stone-100 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                            @endif
+                            <div class="absolute top-2 left-2">
+                                <span class="bg-[#1e3a5f]/80 text-white text-[10px] font-bold px-2 py-1 tracking-wider uppercase">LAUNCHING</span>
                             </div>
-                            <div class="absolute top-2 right-2">
-                                <span class="bg-black/40 text-white text-[10px] font-bold px-2 py-1">10%</span>
-                            </div>
-                            
-                            <!-- Heart Icon -->
-                            <button class="absolute bottom-3 right-3 text-white hover:text-red-500 transition-colors">
-                                <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                            </button>
                         </a>
-                        
                         <div class="p-4 flex-grow flex flex-col justify-between">
                             <div>
-                                <a href="#">
-                                    <h3 class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#c2a278] transition-colors">
-                                        Exclusive Premium Bag Series {{ $i }}
-                                    </h3>
+                                <a href="{{ route('products.show', $product->slug) }}">
+                                    <h3 class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#c2a278] transition-colors">{{ $product->name }}</h3>
                                 </a>
-                                
-                                <!-- Color Swatches (Mock) -->
-                                <div class="flex items-center gap-1 mt-2 mb-2">
-                                    <div class="w-3 h-3 rounded-full bg-black border border-gray-300"></div>
-                                    <div class="w-3 h-3 rounded-full bg-[#8B4513] border border-gray-300"></div>
-                                    <div class="w-3 h-3 rounded-full bg-[#556B2F] border border-gray-300"></div>
-                                    <div class="w-3 h-3 rounded-full bg-[#A0522D] border border-gray-300"></div>
-                                </div>
-                                
-                                <!-- Prices -->
-                                <div class="flex flex-col mt-1">
-                                    <span class="text-xs text-gray-400 line-through">Rp 500.000</span>
-                                    <span class="text-sm font-bold text-[#5586b5]">Rp 450.000</span>
+                                <div class="flex flex-col mt-2">
+                                    <span class="text-sm font-bold text-[#5586b5]">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                                 </div>
                             </div>
-                            
-                            <!-- Action Button -->
-                            <div class="mt-4 text-center border-t border-gray-100 pt-3">
-                                <a href="#" class="text-xs font-bold text-[#5586b5] hover:text-[#1e3a5f] uppercase tracking-wider transition-colors">Beli</a>
+                            <div class="mt-4 text-center border-t border-gray-100 pt-3 flex justify-center gap-3">
+                                @if($product->shopee_link)
+                                    <a href="{{ $product->shopee_link }}" target="_blank" class="text-xs font-bold text-[#EE4D2D] hover:text-[#c23a1a] uppercase tracking-wider transition-colors">Shopee</a>
+                                @endif
+                                @if($product->wa_link)
+                                    <a href="{{ $product->wa_link }}" target="_blank" class="text-xs font-bold text-[#25D366] hover:text-[#1a9e4a] uppercase tracking-wider transition-colors">WA</a>
+                                @endif
+                                @if(!$product->shopee_link && !$product->wa_link)
+                                    <a href="{{ route('products.show', $product->slug) }}" class="text-xs font-bold text-[#5586b5] hover:text-[#1e3a5f] uppercase tracking-wider transition-colors">Detail</a>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
             </div>
-            <div class="swiper-pagination product-pagination"></div>
+            <div class="swiper-pagination launching-pagination"></div>
         </div>
+        @endif
     </div>
 
     <!-- NEW ARRIVAL SECTION -->
@@ -171,60 +159,54 @@ if (empty($bottomImages)) {
             <h2 class="text-xl md:text-2xl font-serif-brand text-[#1e3a5f] uppercase font-bold tracking-wide">NEW ARRIVAL</h2>
         </div>
 
-        <div class="swiper product-slider !pb-12 px-2">
+        @if($newArrival->isEmpty())
+            <p class="text-center text-sm text-gray-400">Belum ada produk.</p>
+        @else
+        <div class="swiper product-slider-arrival !pb-12 px-2">
             <div class="swiper-wrapper">
-            @for($i=5; $i<=8; $i++)
+            @foreach($newArrival as $product)
                 <div class="swiper-slide h-auto">
                     <div class="bg-white h-full rounded-md border border-gray-100 shadow-sm overflow-hidden flex flex-col relative group">
-                        <a href="#" class="block relative w-full aspect-square">
-                            <img src="{{ $bagImages[$i-1] }}" alt="Premium Bag" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                            
-                            <!-- Badges -->
-                            <div class="absolute top-2 left-2 flex flex-col gap-1">
+                        <a href="{{ route('products.show', $product->slug) }}" class="block relative w-full aspect-square">
+                            @if($product->image_path)
+                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                            @else
+                                <div class="w-full h-full bg-stone-100 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                            @endif
+                            <div class="absolute top-2 left-2">
                                 <span class="bg-black/60 text-white text-[10px] font-bold px-2 py-1 tracking-wider uppercase">NEW</span>
                             </div>
-                            <div class="absolute top-2 right-2">
-                                <span class="bg-black/40 text-white text-[10px] font-bold px-2 py-1">20%</span>
-                            </div>
-                            
-                            <!-- Heart Icon -->
-                            <button class="absolute bottom-3 right-3 text-white hover:text-red-500 transition-colors">
-                                <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                            </button>
                         </a>
-                        
                         <div class="p-4 flex-grow flex flex-col justify-between">
                             <div>
-                                <a href="#">
-                                    <h3 class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#c2a278] transition-colors">
-                                        Minimalist Carry Series {{ $i }}
-                                    </h3>
+                                <a href="{{ route('products.show', $product->slug) }}">
+                                    <h3 class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#c2a278] transition-colors">{{ $product->name }}</h3>
                                 </a>
-                                
-                                <!-- Color Swatches (Mock) -->
-                                <div class="flex items-center gap-1 mt-2 mb-2">
-                                    <div class="w-3 h-3 rounded-full bg-[#2F4F4F] border border-gray-300"></div>
-                                    <div class="w-3 h-3 rounded-full bg-[#CD853F] border border-gray-300"></div>
-                                </div>
-                                
-                                <!-- Prices -->
-                                <div class="flex flex-col mt-1">
-                                    <span class="text-xs text-gray-400 line-through">Rp 300.000</span>
-                                    <span class="text-sm font-bold text-[#5586b5]">Rp 240.000</span>
+                                <div class="flex flex-col mt-2">
+                                    <span class="text-sm font-bold text-[#5586b5]">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                                 </div>
                             </div>
-                            
-                            <!-- Action Button -->
-                            <div class="mt-4 text-center border-t border-gray-100 pt-3">
-                                <a href="#" class="text-xs font-bold text-[#5586b5] hover:text-[#1e3a5f] uppercase tracking-wider transition-colors">Beli</a>
+                            <div class="mt-4 text-center border-t border-gray-100 pt-3 flex justify-center gap-3">
+                                @if($product->shopee_link)
+                                    <a href="{{ $product->shopee_link }}" target="_blank" class="text-xs font-bold text-[#EE4D2D] hover:text-[#c23a1a] uppercase tracking-wider transition-colors">Shopee</a>
+                                @endif
+                                @if($product->wa_link)
+                                    <a href="{{ $product->wa_link }}" target="_blank" class="text-xs font-bold text-[#25D366] hover:text-[#1a9e4a] uppercase tracking-wider transition-colors">WA</a>
+                                @endif
+                                @if(!$product->shopee_link && !$product->wa_link)
+                                    <a href="{{ route('products.show', $product->slug) }}" class="text-xs font-bold text-[#5586b5] hover:text-[#1e3a5f] uppercase tracking-wider transition-colors">Detail</a>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
             </div>
-            <div class="swiper-pagination product-pagination"></div>
+            <div class="swiper-pagination arrival-pagination"></div>
         </div>
+        @endif
     </div>
 </div>
 
@@ -289,20 +271,30 @@ if (empty($bottomImages)) {
             },
         });
         
-        // Product Slider
-        const productSwiper = new Swiper('.product-slider', {
+        // Product Sliders
+        const sliderConfig = {
             slidesPerView: 1.5,
             spaceBetween: 16,
-            pagination: {
-                el: '.product-pagination',
-                clickable: true,
-                dynamicBullets: true,
-            },
+            pagination: { clickable: true, dynamicBullets: true },
             breakpoints: {
                 640: { slidesPerView: 2.5, spaceBetween: 20 },
                 1024: { slidesPerView: 4, spaceBetween: 24 },
             }
-        });
+        };
+
+        if (document.querySelector('.product-slider-launching')) {
+            new Swiper('.product-slider-launching', {
+                ...sliderConfig,
+                pagination: { el: '.launching-pagination', clickable: true, dynamicBullets: true },
+            });
+        }
+
+        if (document.querySelector('.product-slider-arrival')) {
+            new Swiper('.product-slider-arrival', {
+                ...sliderConfig,
+                pagination: { el: '.arrival-pagination', clickable: true, dynamicBullets: true },
+            });
+        }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

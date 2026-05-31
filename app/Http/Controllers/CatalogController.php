@@ -9,7 +9,10 @@ class CatalogController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $newLaunching = Product::oldest()->limit(6)->get();
+        $newArrival   = Product::latest()->limit(6)->get();
+
+        return view('welcome', compact('newLaunching', 'newArrival'));
     }
 
     public function show($slug)
