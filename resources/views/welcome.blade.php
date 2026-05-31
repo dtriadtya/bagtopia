@@ -316,5 +316,19 @@ if (empty($bottomImages)) {
     .swiper-pagination-bullet-active {
         opacity: 1;
     }
+
+    /* Equal height product cards */
+    .product-slider-launching .swiper-wrapper,
+    .product-slider-arrival .swiper-wrapper {
+        align-items: stretch;
+    }
+    .product-slider-launching .swiper-slide,
+    .product-slider-arrival .swiper-slide {
+        height: auto;
+    }
+    .product-slider-launching .swiper-slide > div,
+    .product-slider-arrival .swiper-slide > div {
+        height: 100%;
+    }
 </style>
 @endpush
